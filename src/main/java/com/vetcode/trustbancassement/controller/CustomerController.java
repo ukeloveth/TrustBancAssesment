@@ -1,38 +1,42 @@
 package com.vetcode.trustbancassement.controller;
 
-import com.vetcode.trustbancassement.model.Customer;
+import com.vetcode.trustbancassement.dto.CustomerRequestDto;
+import com.vetcode.trustbancassement.dto.CustomerResponseDto;
 import com.vetcode.trustbancassement.service.CustomerService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/customers")
+@RequiredArgsConstructor
 public class CustomerController {
-    @Autowired
-    private CustomerService customerService;
+    private final CustomerService customerService;
 
     @GetMapping
-    public List<Customer> getAllCustomers() {
+    public List<CustomerResponseDto> getAllCustomers() {
         return customerService.getAllCustomers();
     }
 
     @GetMapping("/{id}")
-    public Customer getCustomerById(@PathVariable Long id) {
+    public CustomerResponseDto getCustomerById(@PathVariable Long id) {
         return customerService.getCustomerById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Customer createCustomer(@RequestBody Customer customer) {
-        return customerService.createCustomer(customer);
+    public CustomerResponseDto createCustomer(@Valid @RequestBody CustomerRequestDto customerRequestDto) {
+        return customerService.createCustomer(customerRequestDto);
     }
 
     @PutMapping("/{id}")
-    public Customer updateCustomer(@PathVariable Long id, @RequestBody Customer updatedCustomer) {
-        return customerService.updateCustomer(id, updatedCustomer);
+    public CustomerResponseDto updateCustomer(
+            @PathVariable Long id, @Valid @RequestBody CustomerRequestDto updatedCustomerRequestDto
+    ) {
+        return customerService.updateCustomer(id, updatedCustomerRequestDto);
     }
 
     @DeleteMapping("/{id}")
@@ -41,3 +45,4 @@ public class CustomerController {
         customerService.deleteCustomer(id);
     }
 }
+

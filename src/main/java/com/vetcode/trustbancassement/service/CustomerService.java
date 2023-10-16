@@ -1,17 +1,19 @@
 package com.vetcode.trustbancassement.service;
 
-import com.vetcode.trustbancassement.model.Customer;
+import com.vetcode.trustbancassement.dto.CustomerRequestDto;
+import com.vetcode.trustbancassement.dto.CustomerResponseDto;
 
 import java.util.List;
 
-public interface CustomerService {
-    List<Customer> getAllCustomers();
+public interface
+CustomerService {
+    List<CustomerResponseDto> getAllCustomers();
 
-    Customer getCustomerById(Long id);
+    CustomerResponseDto getCustomerById(Long id);
 
-    Customer createCustomer(Customer customer);
+    CustomerResponseDto createCustomer(CustomerRequestDto customerRequestDto);
 
-    Customer updateCustomer(Long id, Customer updatedCustomer);
+    CustomerResponseDto updateCustomer(Long id, CustomerRequestDto updatedCustomerRequestDto);
 
     void deleteCustomer(Long id);
 }

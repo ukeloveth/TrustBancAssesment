@@ -1,6 +1,5 @@
-package com.vetcode.trustbancassement.model;
+package com.vetcode.trustbancassement.dto;
 
-import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -10,10 +9,9 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "customer")
-@Builder
-public class Customer extends BaseClass{
+public class CustomerResponseDto {
+    private Long id;
+
     @NotBlank(message = "First name is required")
     private String firstName;
 
